@@ -14,8 +14,8 @@
         <Grid.DataContext>
             <View:ViewModel/>
         </Grid.DataContext>
-        <dataGrid:SfDataGrid x:Name="sfDataGrid" AllowFiltering="True"
-                               AutoGenerateColumns="True" AllowEditing="True"
+        <dataGrid:SfDataGrid x:Name="sfDataGrid" AllowFiltering="True" ColumnWidthMode="Star"
+                             AutoGenerateColumns="True" AllowEditing="True"
                                ItemsSource="{Binding Orders}" ShowToolTip="True">
         </dataGrid:SfDataGrid>
     </Grid>
