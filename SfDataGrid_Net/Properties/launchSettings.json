@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SfDataGrid_Net (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "SfDataGrid_Net (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

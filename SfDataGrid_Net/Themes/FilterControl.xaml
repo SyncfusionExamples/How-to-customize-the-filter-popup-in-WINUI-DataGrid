@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dataGrid="using:Syncfusion.UI.Xaml.DataGrid"
+    xmlns:grids="using:Syncfusion.UI.Xaml.Grids"
+    xmlns:core="using:Syncfusion.UI.Xaml.Core"
+    xmlns:local="using:SfDataGrid_Net">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Syncfusion.Core.WinUI/Themes/Common.xaml" />
+     <ResourceDictionary Source="ms-appx:///Syncfusion.Grid.WinUI/Themes/themeresources.xaml" />
+     <ResourceDictionary Source="ms-appx:///Syncfusion.Core.WinUI/Themes/DensityStyles/Standard.xaml" />
+ </ResourceDictionary.MergedDictionaries>
+
+    <core:BoolToVisibilityConverter x:Key="boolToVisiblityConverter" />
+    <core:StringVisibilityConverter x:Key="stringVisibilityConverter"/>
+    <core:BoolNegationConverter x:Key="reverseVisibilityConverter"/>
+    <core:CollectionVisibilityConverter x:Key="collectionVisibilityConverter"/>
+
+    <dataGrid:HeightToMarginConverter x:Key="heightToMarginConverter" />
+    <dataGrid:ResourceNameConverter x:Key="resourceNameConverter" />
+    <dataGrid:AdvancedFiltersButtonVisibiltyConverter x:Key="advancedFilterButtonVisibilityConverter" />
+
+ <Style x:Key="SortButtonStyle" TargetType="grids:SortButton">
+     <Setter Property="Foreground" Value="{ThemeResource SyncfusionDataGridFilterControlSortButtonForeground}" />
+     <Setter Property="Padding" Value="{ThemeResource SyncfusionItemPadding}" />
+     <Setter Property="Height" Value="{ThemeResource SyncfusionListItemMinHeight}"/>
+     <Setter Property="HorizontalAlignment" Value="Stretch" />
+     <Setter Property="VerticalAlignment" Value="Stretch" />
+     <Setter Property="FontWeight" Value="{ThemeResource SyncfusionDataGridFontWeight}" />
+     <Setter Property="FontSize" Value="{ThemeResource SyncfusionBodyFontSize}" />
+     <Setter Property="FontFamily" Value="{ThemeResource SyncfusionDataGridFontFamily}"/>
+     <Setter Property="Background" Value="{ThemeResource SyncfusionDataGridFilterControlSortButtonBackground}"/>
+     <Setter Property="UseSystemFocusVisuals" Value="True"/>
+     <Setter Property="CornerRadius" Value="{ThemeResource SyncfusionDataGridFilterControlSortButtonCornerRadius}"/>
+     <Setter Property="Template">
+         <Setter.Value>
+             <ControlTemplate TargetType="grids:SortButton">
+                 <Grid x:Name="PART_RootGrid"  CornerRadius="4" Margin="0,0,3,0" >
+                     <VisualStateManager.VisualStateGroups>
+                         <VisualStateGroup x:Name="CommonStates">
+                             <VisualState x:Name="Normal" />
+                             <VisualState x:Name="PointerOver">
+                                 <Storyboard>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RootBorder" Storyboard.TargetProperty="Background">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlSortButtonBackgroundPointerOver}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlSortButtonForegroundPointerOver}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                             <VisualState x:Name="Pressed">
+                                 <Storyboard>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RootBorder" Storyboard.TargetProperty="Background">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlSortButtonBackgroundPressed}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlSortButtonForegroundPressed}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                             <VisualState x:Name="Disabled">
+                                 <Storyboard>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RootBorder" Storyboard.TargetProperty="Background">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlSortButtonBackgroundDisabled}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlSortButtonForegroundDisabled}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                         </VisualStateGroup>
+                         <VisualStateGroup x:Name="FocusStates">
+                             <VisualState x:Name="Focused">
+                                 <Storyboard>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RootBorder" Storyboard.TargetProperty="Background">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlSortButtonBackgroundPressed}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                             <VisualState x:Name="Unfocused" />
+                             <VisualState x:Name="PointerFocused" />
+                         </VisualStateGroup>
+                         <VisualStateGroup x:Name="SortStates">
+                             <VisualState x:Name="Sorted">
+                                 <Storyboard>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RootGrid" Storyboard.TargetProperty="Background">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlSortButtonBackgroundSelectedActive}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlSortButtonForegroundSelectedActive}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                             <VisualState x:Name="UnSorted">
+                             </VisualState>
+                         </VisualStateGroup>
+                     </VisualStateManager.VisualStateGroups>
+                     <Border x:Name="PART_RootBorder"
+                          Padding="{TemplateBinding Padding}"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}">
+                         <StackPanel Orientation="Horizontal">
+                             <Border x:Name="PART_IconPresenter"
+                                  Padding="2"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  BorderThickness="1" />
+                             <ContentPresenter x:Name="PART_ContentPresenter"
+                                            Margin="10,0,0,0"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            Content="{TemplateBinding Content}"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            ContentTransitions="{TemplateBinding ContentTransitions}" />
+                         </StackPanel>
+                     </Border>
+                     <Rectangle x:Name="PART_FocusVisualWhite"
+                             IsHitTestVisible="False"
+                             Opacity="0"
+                             Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}"
+                             StrokeDashArray="1,1"
+                             StrokeDashOffset="1.5"
+                             StrokeEndLineCap="Square" />
+                     <Rectangle x:Name="PART_FocusVisualBlack"
+                             IsHitTestVisible="False"
+                             Opacity="0"
+                             Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}"
+                             StrokeDashArray="1,1"
+                             StrokeDashOffset="0.5"
+                             StrokeEndLineCap="Square" />
+                 </Grid>
+             </ControlTemplate>
+         </Setter.Value>
+     </Setter>
+ </Style>
+ <Style BasedOn="{StaticResource SortButtonStyle}" TargetType="grids:SortButton"/>
+
+ <DataTemplate x:Key="DataGridFilterControlCheckboxTemplate">
+     <CheckBox Margin="0"
+      HorizontalAlignment="Stretch"
+      HorizontalContentAlignment="Stretch"
+      Content="{Binding DisplayText,
+                      Mode=OneWay}" 
+      FontFamily="{Binding FontFamily,RelativeSource={RelativeSource Self}}"
+      FontSize="{Binding FontSize,RelativeSource={RelativeSource Self}}"
+      FontStretch="{Binding FontStretch,RelativeSource={RelativeSource Self}}"
+      FontStyle="{Binding FontStyle,RelativeSource={RelativeSource Self}}"
+      FontWeight="{Binding FontWeight,RelativeSource={RelativeSource Self}}"
+      Foreground="{Binding Foreground,RelativeSource={RelativeSource Self}}"
+      IsChecked="{Binding IsSelected,
+                          Mode=TwoWay}" />
+ </DataTemplate>
+
+ <Style x:Key="CheckboxFilterControlStyle" TargetType="dataGrid:CheckboxFilterControl">
+     <Setter Property="Background" Value="{ThemeResource SyncfusionDataGridFilterControlBackground}" />
+     <Setter Property="BorderBrush" Value="{ThemeResource SyncfusionDataGridFilterControlBorderBrush}" />
+     <Setter Property="BorderThickness" Value="1,1,1,3" />
+     <Setter Property="ItemTemplate" Value="{StaticResource DataGridFilterControlCheckboxTemplate}"/>
+     <Setter Property="Template">
+         <Setter.Value>
+             <ControlTemplate TargetType="dataGrid:CheckboxFilterControl">
+                 <Grid Height="{TemplateBinding Height}">
+                     <Grid.RowDefinitions>
+                         <RowDefinition Height="Auto" />
+                         <RowDefinition Height="*" />
+                     </Grid.RowDefinitions>
+                     <Grid Margin="12,0,12,8" Visibility="{TemplateBinding SearchOptionVisibility}">
+                         <TextBox x:Name="PART_SearchTextBox"
+                                   Grid.Column="0"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Center"
+                                   VerticalContentAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   BorderThickness="1" 
+                                   Visibility="{TemplateBinding SearchOptionVisibility}"/>
+                         <TextBlock Grid.Column="0"  
+                                     Margin="11,4,0,6"
+                                     Height="15"
+                                     Width="80"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     FontFamily="{ThemeResource SyncfusionDataGridFontFamily}"
+                                     FontSize="{ThemeResource SyncfusionBodyFontSize}"
+                                     FontStretch="{TemplateBinding FontWeight}"
+                                     FontStyle="{TemplateBinding FontStyle}"
+                                     FontWeight="{ThemeResource SyncfusionDataGridFontWeight}"
+                                     Foreground="{ThemeResource SyncfusionDataGridFilterControlForeground}" 
+                                     IsHitTestVisible="False"
+                                     Text="{grids:GridLocalizationResourceExtension ResourceName=Search}"
+                                     Visibility="{TemplateBinding SearchTextBlockVisibility}" />
+                         <Border Width="16"    
+                                  Height="16"
+                                  Margin="0,7,10,7"
+                                  HorizontalAlignment="Right"
+                                  CornerRadius="4"
+                                  Visibility="{Binding Text,
+                                                       ElementName=PART_SearchTextBox,
+                                                       ConverterParameter=True,
+                                                       Converter={StaticResource ResourceKey=stringVisibilityConverter}}">
+
+                             <FontIcon Foreground="{ThemeResource SyncfusionDataGridFilterControlSearchIconBrush}"  Glyph="&#xE721;" FontSize="{ThemeResource SyncfusionCaptionFontSize}"   />
+                         </Border>
+                         <Border HorizontalAlignment="Right">
+                             <Button x:Name="PART_DeleteButton"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      Margin="0,7,10,7" 
+                                      Visibility="{Binding Text,
+                                                           ElementName=PART_SearchTextBox,
+                                                           Converter={StaticResource ResourceKey=stringVisibilityConverter}}">
+                                 <Button.Style>
+                                     <Style TargetType="Button">
+                                         <Setter Property="Template">
+                                             <Setter.Value>
+                                                 <ControlTemplate TargetType="Button">
+                                                     <Grid>
+                                                         <VisualStateManager.VisualStateGroups>
+                                                             <VisualStateGroup x:Name="CommonStates">
+                                                                 <VisualState x:Name="Normal" />
+                                                                 <VisualState x:Name="Pressed" >
+                                                                     <Storyboard>
+                                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_DeleteButtonPresenter" Storyboard.TargetProperty="BorderBrush">
+                                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlSearchIconBackgroundPressed}" />
+                                                                         </ObjectAnimationUsingKeyFrames>
+                                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_DeleteButtonPresenter" Storyboard.TargetProperty="Background">
+                                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlSearchIconBackgroundPressed}" />
+                                                                         </ObjectAnimationUsingKeyFrames>
+                                                                     </Storyboard>
+                                                                 </VisualState>
+                                                                 <VisualState x:Name="Disabled" />
+                                                                 <VisualState x:Name="PointerOver" >
+                                                                     <Storyboard>
+                                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_DeleteButtonPresenter" Storyboard.TargetProperty="BorderBrush">
+                                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlSearchIconBackgroundPointerOver}" />
+                                                                         </ObjectAnimationUsingKeyFrames>
+                                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_DeleteButtonPresenter" Storyboard.TargetProperty="Background">
+                                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlSearchIconBackgroundPointerOver}" />
+                                                                         </ObjectAnimationUsingKeyFrames>
+                                                                     </Storyboard>
+                                                                 </VisualState>
+                                                             </VisualStateGroup>
+                                                             <VisualStateGroup x:Name="FocusStates">
+                                                                 <VisualState x:Name="Focused" />
+                                                                 <VisualState x:Name="PointerFocused" />
+                                                             </VisualStateGroup>
+                                                         </VisualStateManager.VisualStateGroups>
+                                                         <Border x:Name="PART_DeleteButtonPresenter"
+                                                                  HorizontalAlignment="Stretch"
+                                                                  VerticalAlignment="Stretch"
+                                                                  Width="32"
+                                                                  CornerRadius="{ThemeResource SyncfusionDataGridFilterControlDeleteIconCornerRadius}"
+                                                                  Background="{ThemeResource SyncfusionDataGridFilterControlSearchIconBackground}"
+                                                                  BorderBrush="{ThemeResource SyncfusionDataGridFilterControlSearchIconBackground}"
+                                                                  BorderThickness="0">
+                                                             <FontIcon Glyph="&#xE711;" FontSize="{ThemeResource SyncfusionCaptionFontSize}" Foreground="{ThemeResource SyncfusionDataGridFilterControlDeleteIconForeground}"/>
+
+                                                         </Border>
+                                                     </Grid>
+                                                 </ControlTemplate>
+                                             </Setter.Value>
+                                         </Setter>
+                                     </Style>
+                                 </Button.Style>
+                             </Button>
+                         </Border>
+                     </Grid>
+                     <Border Grid.Row="1"
+                              Margin="8,0,8,4"
+                              Background="{TemplateBinding Background}"
+                              BorderBrush="{ThemeResource SystemBaseMediumColor}">
+                         <Grid>
+                             <TextBlock Margin="0,25,0,0"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Top"
+                                          FontSize="{ThemeResource SyncfusionBodyFontSize}"
+                                          FontFamily="{ThemeResource SyncfusionDataGridFontFamily}"
+                                          FontWeight="{ThemeResource SyncfusionDataGridFontWeight}"
+                                         Foreground="{ThemeResource SyncfusionDataGridFilterControlSearchTextWatermarkBrush}" 
+                                         Text="{grids:GridLocalizationResourceExtension ResourceName=NoItems}"
+                                        Visibility="{Binding HasItemsSource,
+                                                              RelativeSource={RelativeSource TemplatedParent},
+                                                              Converter={StaticResource ResourceKey=reverseVisibilityConverter}}" />
+                             <Grid Visibility="{Binding HasItemsSource, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ResourceKey=boolToVisiblityConverter}}">
+                                 <Grid.RowDefinitions>
+                                     <RowDefinition Height="Auto" />
+                                     <RowDefinition Height="*" />
+                                 </Grid.RowDefinitions>
+                                 <Border Grid.Row="0"
+                                      Margin="5,0,5,0" 
+                                      Width="244"
+                                      Height="34"
+                                      VerticalAlignment="Top"
+                                      Background="{TemplateBinding Background}"
+                                      Visibility="{Binding ItemsSource,
+                                                               ElementName=PART_ItemsControl,
+                                                               Converter={StaticResource ResourceKey=collectionVisibilityConverter}}">
+                                     <CheckBox x:Name="PART_CheckBox"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Center"
+                                                Margin="4,0,10,0"
+                                                Content="{grids:GridLocalizationResourceExtension ResourceName=SelectAll}"
+                                                IsThreeState="True"
+                                                Visibility="{Binding ItemsSource,
+                                                               ElementName=PART_ItemsControl,
+                                                               Converter={StaticResource ResourceKey=collectionVisibilityConverter}}" />
+                                 </Border>
+                                 <Grid Grid.Row="1">
+                                     <ProgressRing x:Name="PART_ProgressRing"
+                                                    Height="30"
+                                                    Width="30"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{ThemeResource SyncfusionBuysIndicatorFill}"
+                                                     IsActive="{Binding IsItemSourceLoaded,
+                                                                       Mode=TwoWay,
+                                                                       RelativeSource={RelativeSource TemplatedParent},
+                                                                       Converter={StaticResource ResourceKey=reverseVisibilityConverter}}"    IsTabStop="False" />
+
+                                     <ItemsControl x:Name="PART_ItemsControl"
+                                                    Height="{TemplateBinding Height}"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Stretch"
+                                                    IsTabStop="False"
+                                                    HorizontalContentAlignment="Stretch"
+                                                    VerticalContentAlignment="Stretch"
+                                                    ItemTemplate="{TemplateBinding ItemTemplate}"
+                                                    ItemsSource="{TemplateBinding ItemsSource}"
+                                                    Visibility="{Binding IsActive,
+                                                                         ElementName=PART_ProgressRing,
+                                                                         ConverterParameter=True,
+                                                                         Converter={StaticResource ResourceKey=boolToVisiblityConverter}}">
+                                         <ItemsControl.Template>
+                                             <ControlTemplate TargetType="ItemsControl">
+                                                 <Border Background="{TemplateBinding Background}"
+                                                          Margin="5,0,5,0"
+                                                          BorderBrush="{TemplateBinding BorderBrush}"
+                                                          BorderThickness="{TemplateBinding BorderThickness}"
+                                                          Padding="{TemplateBinding Padding}">
+                                                     <Grid>
+                                                         <ScrollViewer x:Name="PART_ScrollViewer" HorizontalAlignment="Stretch"
+                                                                        HorizontalScrollBarVisibility="Auto"
+                                                                        IsTabStop="False"
+                                                                        VerticalScrollBarVisibility="Auto"
+                                                                        Visibility="{Binding ItemsSource,
+                                                                                             RelativeSource={RelativeSource TemplatedParent},
+                                                                                             Converter={StaticResource ResourceKey=collectionVisibilityConverter}}">
+                                                             <ItemsPresenter x:Name="PART_ItemsPresenter" Margin="4,0,4,4" />
+                                                         </ScrollViewer>
+                                                         <TextBlock Margin="{Binding ElementName=PART_ItemsPresenter,
+                                                                                      Path=Margin}"
+                                                                     HorizontalAlignment="Center"
+                                                                     VerticalAlignment="Top"
+                                                                     FontFamily="{ThemeResource SyncfusionDataGridFontFamily}"
+                                                                     FontSize="{ThemeResource SyncfusionBodyFontSize}"
+                                                                     FontStretch="{TemplateBinding FontWeight}"
+                                                                     FontStyle="{TemplateBinding FontStyle}"
+                                                                     FontWeight="{ThemeResource SyncfusionDataGridFontWeight}"
+                                                                     Foreground="{ThemeResource SyncfusionDataGridFilterControlSearchTextWatermarkBrush}"
+                                                                     Text="{grids:GridLocalizationResourceExtension ResourceName=NoMatches}"
+                                                                    Visibility="{Binding ItemsSource,
+                                                                                          RelativeSource={RelativeSource TemplatedParent},
+                                                                                          ConverterParameter=True,
+                                                                                          Converter={StaticResource ResourceKey=collectionVisibilityConverter}}" />
+                                                     </Grid>
+                                                 </Border>
+                                             </ControlTemplate>
+                                         </ItemsControl.Template>
+                                         <ItemsControl.ItemsPanel>
+                                             <ItemsPanelTemplate>
+                                                 <VirtualizingStackPanel HorizontalAlignment="Stretch" />
+                                             </ItemsPanelTemplate>
+                                         </ItemsControl.ItemsPanel>
+
+                                     </ItemsControl>
+                                 </Grid>
+                             </Grid>
+                         </Grid>
+                     </Border>
+                 </Grid>
+             </ControlTemplate>
+         </Setter.Value>
+     </Setter>
+ </Style>
+ <Style BasedOn="{StaticResource CheckboxFilterControlStyle}" TargetType="dataGrid:CheckboxFilterControl"/>
+
+ <Style x:Key="clearFilterBtnStyle" TargetType="Button">
+     <Setter Property="Background" Value="Blue" />
+     <Setter Property="Foreground" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterButtonForeground}" />
+     <Setter Property="BorderBrush" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterButtonBorderBrush}" />
+     <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />
+     <Setter Property="Padding" Value="{ThemeResource SyncfusionItemPadding}" />
+     <Setter Property="Height" Value="{ThemeResource SyncfusionListItemMinHeight}"/>
+     <Setter Property="HorizontalAlignment" Value="Left" />
+     <Setter Property="VerticalAlignment" Value="Center" />
+     <Setter Property="FontSize" Value="{ThemeResource SyncfusionBodyFontSize}" />
+     <Setter Property="FontWeight" Value="{ThemeResource SyncfusionDataGridFontWeight}" />
+     <Setter Property="FontFamily" Value="{ThemeResource SyncfusionDataGridFontFamily}" />
+     <Setter Property="CornerRadius" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterButtonCornerRadius}"/>
+     <Setter Property="Template">
+         <Setter.Value>
+             <ControlTemplate TargetType="Button">
+                 <Grid>
+                     <VisualStateManager.VisualStateGroups>
+                         <VisualStateGroup x:Name="CommonStates">
+                             <VisualState x:Name="Normal" />
+                             <VisualState x:Name="PointerOver">
+                                 <Storyboard>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterButtonBackgroundPointerOver}"/>
+
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterButtonForegroundPointerOver}"/>
+
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="path" Storyboard.TargetProperty="(Shape.Fill)">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterIconPointerOver}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                             <VisualState x:Name="Pressed">
+                                 <Storyboard>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterButtonBackgroundPressed}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterButtonForegroundPressed}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="path" Storyboard.TargetProperty="(Shape.Fill)">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterIconPressed}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                             <VisualState x:Name="Disabled">
+                                 <Storyboard>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterButtonBackgroundDisabled}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterButtonForegroundDisabled}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="path" Storyboard.TargetProperty="(Shape.Fill)">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterIconDisabled}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                     
+    <DoubleAnimation Duration="0"
+                                                   Storyboard.TargetName="Border"
+                                                   Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                   To="0.5" />
+    
+                                 </Storyboard>
+                             </VisualState>
+                         </VisualStateGroup>
+                         <VisualStateGroup x:Name="FocusStates">
+                             <VisualState x:Name="Focused">
+                                 <Storyboard>
+
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterButtonBackgroundPressed}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterButtonForegroundPressed}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="path" Storyboard.TargetProperty="(Shape.Fill)">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridFilterControlClearFilterIconPressed}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+
+                                 </Storyboard>
+                             </VisualState>
+                             <VisualState x:Name="Unfocused" />
+                             <VisualState x:Name="PointerFocused" />
+                         </VisualStateGroup>
+                     </VisualStateManager.VisualStateGroups>
+                     <Border BorderBrush="{ThemeResource SyncfusionDataGridFilterControlTopSeparatorBorderBrush}"
+                          BorderThickness="0,1,0,0" />
+                     <Grid  CornerRadius="4" Margin="4,0,4,0">
+                         <Border x:Name="Border"
+                              Margin="0,1,0,0"
+                              Padding="{TemplateBinding Padding}"
+                              Background="{TemplateBinding Background}"
+                              BorderBrush="{TemplateBinding BorderBrush}">
+                             <Grid>
+                                 <Grid.ColumnDefinitions>
+                                     <ColumnDefinition Width="Auto" />
+                                     <ColumnDefinition />
+                                 </Grid.ColumnDefinitions>
+                                 <Border>
+                                     <Path x:Name="path"
+                                        Width="12"
+                                        Height="10"                                              
+                                        Data="M15.291991,7.9980363 L15.999988,8.7050375 14.207067,10.50006 15.998995,12.294092 15.291017,13.001063 13.499986,11.207969 11.709008,13.001046 11.001011,12.294044 12.792894,10.500062 10.999995,8.7050957 11.708004,7.998063 13.499982,9.7921451 z M1,1 L1,1.1610003 6.9999995,7.2280002 6.9999995,12 8.9999998,12 8.9999998,7.006 15,1.1550002 15,1 z M0,0 L16,0 16,1.5770001 9.9999995,7.428 9.9999995,13 5.9999995,13 5.9999995,7.638 0,1.5710001 z"
+                                        Fill="{ThemeResource SyncfusionDataGridFilterControlClearFilterIcon}"
+                                        Stretch="Uniform">
+                                         <Path.RenderTransform>
+                                             <TransformGroup>
+                                                 <TransformGroup.Children>
+                                                     <RotateTransform Angle="0" />
+                                                     <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                 </TransformGroup.Children>
+                                             </TransformGroup>
+                                         </Path.RenderTransform>
+                                     </Path>
+                                 </Border>
+                                 <ContentPresenter x:Name="ContentPresenter"
+                                                Grid.Column="1"
+                                                Margin="10,0,0,0"
+                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                Content="{TemplateBinding Content}"
+                                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                ContentTransitions="{TemplateBinding ContentTransitions}" />
+                             </Grid>
+                         </Border>
+                     </Grid>
+                 </Grid>
+             </ControlTemplate>
+         </Setter.Value>
+     </Setter>
+ </Style>
+
+ <Style x:Key="AdvancedFiltersBtnStyle" TargetType="Button">
+     <Setter Property="Background" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonBackground}" />
+     <Setter Property="Foreground" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonForeground}" />
+     <Setter Property="BorderBrush" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonBorderBrush}" />
+     <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />
+     <Setter Property="Padding" Value="{ThemeResource SyncfusionItemPadding}" />
+     <Setter Property="Height" Value="{ThemeResource SyncfusionListItemMinHeight}"/>
+     <Setter Property="HorizontalAlignment" Value="Left" />
+     <Setter Property="VerticalAlignment" Value="Center" />
+     <Setter Property="FontFamily" Value="{ThemeResource SyncfusionDataGridFontFamily}" />
+     <Setter Property="FontWeight" Value="Normal" />
+     <Setter Property="FontSize" Value="{ThemeResource SyncfusionBodyFontSize}" />
+     <Setter Property="CornerRadius" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonCornerRadius}"/>
+     <Setter Property="Template">
+         <Setter.Value>
+             <ControlTemplate TargetType="Button">
+                 <Grid x:Name="PART_AdvancedFiltersButtonPresenter"  CornerRadius="4" Margin="4,0,6,0"
+                    Padding="{TemplateBinding Padding}" 
+                    Background="{TemplateBinding Background}">
+                     <Grid.ColumnDefinitions>
+                         <ColumnDefinition />
+                         <ColumnDefinition />
+                     </Grid.ColumnDefinitions>
+                     <VisualStateManager.VisualStateGroups>
+                         <VisualStateGroup x:Name="CommonStates">
+                             <VisualState x:Name="Normal" />
+                             <VisualState x:Name="PointerOver">
+                                 <Storyboard>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_AdvancedFiltersButtonPresenter" Storyboard.TargetProperty="Background">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonBackgroundPointerOver}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonForegroundPointerOver}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_FilterToggleButtonIndicator" Storyboard.TargetProperty="(Shape.Fill)">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonExpanderPointerOver}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ExpanderCellPath" Storyboard.TargetProperty="(Shape.Fill)">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonExpanderPointerOver}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                             <VisualState x:Name="Pressed">
+                                 <Storyboard>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_AdvancedFiltersButtonPresenter" Storyboard.TargetProperty="Background">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonBackgroundPressed}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonForegroundPressed}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_FilterToggleButtonIndicator" Storyboard.TargetProperty="(Shape.Fill)">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonExpanderPressed}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ExpanderCellPath" Storyboard.TargetProperty="(Shape.Fill)">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonExpanderPressed}" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                             <VisualState x:Name="Disabled">
+                                 <Storyboard>
+                                     <DoubleAnimation Duration="0"
+                                                   Storyboard.TargetName="Border"
+                                                   Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                   To="0.5" />
+                                 </Storyboard>
+                             </VisualState>
+                         </VisualStateGroup>
+                         <VisualStateGroup x:Name="FocusStates">
+                             <VisualState x:Name="Focused">
+                                 <Storyboard>
+                                     <ColorAnimationUsingKeyFrames Storyboard.TargetName="PART_AdvancedFiltersButtonPresenter" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                         <EasingColorKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonBackgroundPressed}" />
+                                     </ColorAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonForegroundPressed}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_FilterToggleButtonIndicator" Storyboard.TargetProperty="(Shape.Fill)">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonExpanderPressed}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ExpanderCellPath" Storyboard.TargetProperty="(Shape.Fill)">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SyncfusionDataGridAdvancedFilterButtonExpanderPressed}"/>
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                             <VisualState x:Name="Unfocused" />
+                             <VisualState x:Name="PointerFocused" />
+                         </VisualStateGroup>
+                         <VisualStateGroup x:Name="ExpansionStates">
+                             <VisualState x:Name="Collapsed">
+                                 <Storyboard>
+                                     <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_ExpanderCellPath" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)">
+                                         <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0">
+                                             <EasingDoubleKeyFrame.EasingFunction>
+                                                 <CubicEase EasingMode="EaseIn" />
+                                             </EasingDoubleKeyFrame.EasingFunction>
+                                         </EasingDoubleKeyFrame>
+                                     </DoubleAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                             <VisualState x:Name="Expanded">
+                                 <Storyboard>
+                                     <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_ExpanderCellPath" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)">
+                                         <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="180">
+                                             <EasingDoubleKeyFrame.EasingFunction>
+                                                 <CubicEase EasingMode="EaseIn" />
+                                             </EasingDoubleKeyFrame.EasingFunction>
+                                         </EasingDoubleKeyFrame>
+                                     </DoubleAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                         </VisualStateGroup>
+                         <VisualStateGroup x:Name="FilterStates">
+                             <VisualState x:Name="Filtered">
+                                 <Storyboard BeginTime="0">
+                                     <ObjectAnimationUsingKeyFrames BeginTime="0"
+                                                                 Duration="1"
+                                                                 Storyboard.TargetName="PART_FilterToggleButtonIndicator"
+                                                                 Storyboard.TargetProperty="Data">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="M0,1.001056 L10.35101,1.001056 C10.20201,1.3120559 10.10201,1.6470559 10.05001,2.001056 L1.000001,2.001056 1.000001,2.1620559 7.0000072,8.2280561 7.0000072,13.001056 9.0000088,13.001056 9.0000088,8.0070559 11.626011,5.446056 C11.928012,5.6390558 12.263012,5.781056 12.619012,5.8750559 L10.00001,8.4280559 10.00001,14.001056 6.0000062,14.001056 6.0000062,8.6380559 0,2.5720559 z M13.500009,0 C14.816274,0 15.894526,1.0165525 15.992721,2.3076123 L15.994874,2.3416122 15.994937,2.3424517 15.994996,2.3435248 15.996757,2.3713249 15.997385,2.3878689 15.997752,2.3946757 15.99837,2.4138191 15.999192,2.4354608 15.999271,2.4416783 15.99945,2.4472041 C15.999828,2.4647634 16.000019,2.4823719 16.000019,2.5000283 L15.999192,2.5645391 C15.965519,3.8942486 14.894258,4.9655105 13.564548,4.9991838 L13.500479,4.9999942 13.500006,5.0000283 13.492379,4.9999036 13.43547,4.9991838 13.425743,4.9988145 13.423838,4.9987832 13.420088,4.9985996 13.371334,4.9967479 C12.050164,4.9298068 11.000009,3.8378438 11.000009,2.5000001 11.000009,1.119 12.119009,0 13.500009,0 z" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                             <VisualState x:Name="UnFiltered">
+                                 <Storyboard BeginTime="0">
+                                     <ObjectAnimationUsingKeyFrames BeginTime="0"
+                                                                 Duration="1"
+                                                                 Storyboard.TargetName="PART_FilterToggleButtonIndicator"
+                                                                 Storyboard.TargetProperty="Data">
+                                         <DiscreteObjectKeyFrame KeyTime="0" Value="M1,1 L1,1.1609497 7,7.2279663 7,12 9,12 9,7.0049438 15,1.1549683 15,1 z M0,0 L16,0 16,1.5769653 10,7.4269409 10,13 6,13 6,7.6380005 0,1.5709839 z" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                         </VisualStateGroup>
+                     </VisualStateManager.VisualStateGroups>
+                     <StackPanel Orientation="Horizontal" 
+                              Grid.Column="0"
+                              Margin="0,0,-10,0"
+                              HorizontalAlignment="Stretch">
+                         <Border HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+                             <Path Name="PART_FilterToggleButtonIndicator"
+                              Width="12"
+                              Height="10"
+                              Data="M1,1 L1,1.1609497 7,7.2279663 7,12 9,12 9,7.0049438 15,1.1549683 15,1 z M0,0 L16,0 16,1.5769653 10,7.4269409 10,13 6,13 6,7.6380005 0,1.5709839 z"
+                              Fill="{ThemeResource SyncfusionDataGridFilterControlFilteredFromIconBrush}"
+                              Stretch="Uniform">
+                                 <Path.RenderTransform>
+                                     <TransformGroup>
+                                         <TransformGroup.Children>
+                                             <RotateTransform Angle="0" />
+                                             <ScaleTransform ScaleX="1" ScaleY="1" />
+                                         </TransformGroup.Children>
+                                     </TransformGroup>
+                                 </Path.RenderTransform>
+                             </Path>
+                         </Border>
+                         <ContentPresenter x:Name="ContentPresenter"
+                                    Margin="10,0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    ContentTransitions="{TemplateBinding ContentTransitions}" />
+                     </StackPanel>
+                     <Grid  Width="12"
+                        Height="12"
+                        Grid.Column="1" 
+                        HorizontalAlignment="Right">
+                         <Path x:Name="PART_ExpanderCellPath"
+                            Width="10"
+                            Height="5.6"
+                            Data="M13.481802,0.00032981505 C13.609551,-0.0042949642 13.73905,0.03970406 13.840046,0.13320228 14.043044,0.32119721 14.054046,0.63718909 13.866046,0.83918363 L7.3551865,7.8390048 C7.2601872,7.9410012 7.1281863,7.9990004 6.9891968,7.9990004 6.8501926,7.9990004 6.7182069,7.9410012 6.6232076,7.8390048 L0.1343357,0.8631832 C-0.054655638,0.66118866 -0.042647232,0.34419542 0.16033596,0.15620056 0.36133567,-0.030794034 0.67733828,-0.020795014 0.86632958,0.18220082 L6.9891968,6.7650326 13.134052,0.15920067 C13.228052,0.058203434 13.354052,0.004954723 13.481802,0.00032981505 z"
+                            Fill="{ThemeResource SyncfusionDataGridAdvancedFilterButtonExpander}"
+                            RenderTransformOrigin="0.5,0.5"
+                            Stretch="Fill">
+                             <Path.RenderTransform>
+                                 <TransformGroup>
+                                     <TransformGroup.Children>
+                                         <RotateTransform Angle="-90" />
+                                     </TransformGroup.Children>
+                                 </TransformGroup>
+                             </Path.RenderTransform>
+                         </Path>
+                     </Grid>
+                 </Grid>
+             </ControlTemplate>
+         </Setter.Value>
+     </Setter>
+ </Style>
+
+ <Style x:Key="GridFilterControlStyle" TargetType="dataGrid:GridFilterControl">
+     <Setter Property="BorderThickness" Value="1,1,1,1" />
+     <Setter Property="MinWidth" Value="254" />
+     <Setter Property="MinHeight" Value="512" />
+     <Setter Property="FontFamily" Value ="{ThemeResource SyncfusionDataGridFontFamily}"/>
+     <Setter Property="FontSize" Value="{ThemeResource SyncfusionBodyFontSize}"/>
+     <Setter Property="FontWeight" Value="{ThemeResource SyncfusionDataGridFontWeight}"/>
+     <Setter Property="Template">
+         <Setter.Value>
+             <ControlTemplate TargetType="dataGrid:GridFilterControl">
+                 <Border>
+                     <VisualStateManager.VisualStateGroups>
+                         <VisualStateGroup x:Name="FilterControlStates">
+                             <VisualState x:Name="AdvancedFilter">
+                                 <Storyboard>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_AdvancedFilterControl" Storyboard.TargetProperty="(FrameworkElement.Visibility)">
+                                         <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_CheckboxFilterControl" Storyboard.TargetProperty="(FrameworkElement.Visibility)">
+                                         <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                             <VisualState x:Name="CheckboxFilter">
+                                 <Storyboard>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_AdvancedFilterControl" Storyboard.TargetProperty="(FrameworkElement.Visibility)">
+                                         <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_CheckboxFilterControl" Storyboard.TargetProperty="(FrameworkElement.Visibility)">
+                                         <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
+                                     </ObjectAnimationUsingKeyFrames>
+                                 </Storyboard>
+                             </VisualState>
+                         </VisualStateGroup>
+                     </VisualStateManager.VisualStateGroups>
+                     <ContentControl ContentTemplate="{TemplateBinding ContentTemplate}">
+                         <Border x:Name="PART_FilterPopUpBorder"
+                                  Width="{Binding FilterPopupWidth,
+                                                  Mode=TwoWay,
+                                                  RelativeSource={RelativeSource TemplatedParent}}"
+                                  Height="{Binding FilterPopupHeight,
+                                                   Mode=TwoWay,
+                                                   RelativeSource={RelativeSource TemplatedParent}}"
+                                  MinWidth="{TemplateBinding MinWidth}"
+                                  MinHeight="{TemplateBinding MinHeight}"
+                                  Background="{ThemeResource SyncfusionDataGridFilterControlBackground}"
+                                  BorderBrush="{ThemeResource SyncfusionDataGridFilterControlBorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  CornerRadius="{ThemeResource SyncfusionDataGridFilterControlCornerRadius}">
+                             <Grid>
+                                 <Grid.RowDefinitions>
+                                     <RowDefinition Height="Auto" />
+                                     <RowDefinition Height="*" />
+                                     <RowDefinition Height="Auto" />
+                                     <RowDefinition Height="Auto" />
+                                 </Grid.RowDefinitions>
+                                 <StackPanel>
+                                     <grids:SortButton x:Name="PART_SortAscendingButton"
+                                                        Height="34"
+                                                        Width="246"
+                                                        Margin="4,1,4,3"
+                                                        Background="Aqua"
+                                                        Padding="{ThemeResource SyncfusionItemPadding}"
+                                                        Content="{TemplateBinding AscendingSortString}"
+                                                        Style="{StaticResource SortButtonStyle}"
+                                                        Visibility="{TemplateBinding SortOptionVisibility}">
+                                         <grids:SortButton.Icon>
+                                             <Grid >
+                                                 <Path Width="12"
+                                                        Height="12"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"                                                              
+                                                        Data="M0.38801098,9.000021 L5.5220246,9.000021 5.5220246,9.5080204 1.7080145,15.019021 5.4740243,15.019021 5.4740243,16.000021 0.093009949,16.000021 0.093009949,15.46802 3.9210205,9.9870205 0.38801098,9.9870205 z M3.2180066,1.0400046 C3.1900063,1.2250037 3.1560063,1.3720028 3.1220064,1.4790025 L2.1640043,4.2719874 4.2960086,4.2719874 3.3290067,1.4790025 C3.3000064,1.3870028 3.2700067,1.2410036 3.2380066,1.0400046 z M2.6070051,1.0252013E-05 L3.9080076,1.0252013E-05 6.4940124,7.0009727 5.2280102,7.0009727 4.6010089,5.2189822 1.8630037,5.2189822 1.2610025,7.0009727 0,7.0009727 z M10.499012,0 L11.499012,0 11.499012,14.135806 13.789003,11.945988 14.484,12.666985 11.000013,15.999971 7.5150249,12.666985 8.2100222,11.945988 10.499012,14.134064 z"
+                                                        Fill="{ThemeResource SyncfusionDataGridFilterControlSortIcon}"
+                                                        Stretch="Fill" />
+                                             </Grid>
+                                         </grids:SortButton.Icon>
+                                     </grids:SortButton>
+                                     <grids:SortButton x:Name="PART_SortDescendingButton"
+                                                        Height="34"
+                                                        Width="246"
+                                                        Margin="4,0,4,3"
+                                                        Background="Aqua"
+                                                        Padding="{ThemeResource SyncfusionItemPadding}"
+                                                        Content="{TemplateBinding DescendingSortString}"
+                                                        Style="{StaticResource SortButtonStyle}"
+                                                        Visibility="{TemplateBinding SortOptionVisibility}">
+                                         <grids:SortButton.Icon>
+                                             <Grid >
+                                                 <Path Width="12"
+                                                        Height="12"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Data="M3.2180057,10.040006 C3.1900058,10.225006 3.1560054,10.372005 3.1220055,10.479004 L2.1640038,13.271989 4.2960076,13.271989 3.3290057,10.479004 C3.3000059,10.387005 3.2700057,10.241005 3.2380056,10.040006 z M2.6070046,9.0000122 L3.9080069,9.0000122 6.4940119,16.000975 5.2280095,16.000975 4.6010082,14.218984 1.8630033,14.218984 1.2610021,16.000975 0,16.000975 z M0.38801003,2.2888184E-05 L5.5220239,2.2888184E-05 5.5220239,0.50802231 1.7080135,6.0190225 5.4740238,6.0190225 5.4740238,7.0000224 0.093009472,7.0000224 0.093009472,6.4680223 3.9210196,0.9870224 0.38801003,0.9870224 z M10.499024,0 L11.499024,0 11.499024,14.137797 13.789006,11.947995 14.48401,12.669 11.000014,16.001995 7.5150103,12.669 8.2100148,11.947995 10.499024,14.136076 z"
+                                                        Fill="{ThemeResource SyncfusionDataGridFilterControlSortIcon}"
+                                                        Stretch="Fill" />
+                                             </Grid>
+                                         </grids:SortButton.Icon>
+                                     </grids:SortButton>
+                                     <Button x:Name="PART_ClearFilterButton"
+                                              Height="34"
+                                              Width="246" 
+                                              Margin="4,0,4,3"
+                                              HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Stretch"
+                                              HorizontalContentAlignment="Left"
+                                              Content="{grids:GridLocalizationResourceExtension ResourceName=ClearFilter}"
+                                              IsEnabled="False"
+                                              Style="{StaticResource clearFilterBtnStyle}" />
+                                     <Grid Margin="0,3,4,3" >
+
+                                         <TextBlock x:Name="AdvanceFiltersText"
+                                                     Margin="46,4,25,4"
+                                                     HorizontalAlignment="Stretch"
+                                                     VerticalAlignment="Center"
+                                                     Foreground="{ThemeResource SyncfusionDataGridAdvancedFilterButtonForeground}"
+                                                     Text="{Binding FilterColumnType,
+                                                                    RelativeSource={RelativeSource TemplatedParent}}"
+                                                      Visibility="{Binding FilterMode,
+                                                                          RelativeSource={RelativeSource TemplatedParent},
+                                                                          Converter={StaticResource ResourceKey=advancedFilterButtonVisibilityConverter},
+                                                                          ConverterParameter=reverse}" />
+                                         <Button x:Name="PART_AdvancedFilterButton"
+                                                  HorizontalAlignment="Stretch"
+                                                  VerticalAlignment="Stretch"
+                                                  HorizontalContentAlignment="Left"
+                                                  Height="34"
+                                                  Width="246"
+                                                  Margin="4,0,4,8"
+                                                  Content="{Binding FilterColumnType,
+                                                                    RelativeSource={RelativeSource TemplatedParent}}"
+                                                FontFamily="{ThemeResource SyncfusionDataGridFontFamily}"
+                                                FontSize="{ThemeResource SyncfusionBodyFontSize}"
+                                                FontStretch="{TemplateBinding FontWeight}"
+                                                FontStyle="{TemplateBinding FontStyle}"
+                                                FontWeight="{ThemeResource SyncfusionDataGridFontWeight}"
+                                                Foreground="{ThemeResource SyncfusionDataGridAdvancedFilterButtonForeground}"
+                                                  Style="{StaticResource AdvancedFiltersBtnStyle}"
+                                                    Visibility="{Binding FilterMode,
+                                                                       RelativeSource={RelativeSource TemplatedParent},
+                                                                       Converter={StaticResource ResourceKey=advancedFilterButtonVisibilityConverter}}"/>
+                                     </Grid>
+
+                                 </StackPanel>
+
+                                 <Grid Grid.Row="1">
+                                     <dataGrid:CheckboxFilterControl x:Name="PART_CheckboxFilterControl"
+                                                                   FontFamily="{TemplateBinding FontFamily}"
+                                                                   FontSize="{TemplateBinding FontSize}"
+                                                                   FontStretch="{TemplateBinding FontWeight}"
+                                                                   FontStyle="{TemplateBinding FontStyle}"
+                                                                   FontWeight="{TemplateBinding FontWeight}"
+                                                                   IsTabStop="False" 
+												 Visibility="{Binding IsAdvancedFilterVisible,
+                                                                                        RelativeSource={RelativeSource TemplatedParent},
+                                                                                        Converter={StaticResource reverseVisibilityConverter}}" />
+
+                                     <dataGrid:AdvancedFilterControl x:Name="PART_AdvancedFilterControl"
+                                                                   FontFamily="{TemplateBinding FontFamily}"                                                                         
+                                                                   FontSize="{TemplateBinding FontSize}"
+                                                                   FontStretch="{TemplateBinding FontWeight}"
+                                                                   FontStyle="{TemplateBinding FontStyle}"
+                                                                   FontWeight="{TemplateBinding FontWeight}"                                                                        
+                                                                   IsTabStop="False"
+                                                                   Visibility="{Binding IsAdvancedFilterVisible,
+                                                                                        RelativeSource={RelativeSource TemplatedParent},
+                                                                                        Converter={StaticResource boolToVisiblityConverter}}"/>
+                                 </Grid>
+
+                                 <Border Grid.Row="2"
+                                          BorderBrush="{ThemeResource SyncfusionDataGridFilterControlBottomSeparatorBorderBrush}"
+                                          BorderThickness="0,0,0,1" />
+
+                                 <Grid Grid.Row="3">
+                                     <Grid.ColumnDefinitions>
+                                         <ColumnDefinition/>
+                                     </Grid.ColumnDefinitions>
+                                     <Grid Grid.Column="0">
+                                         <Grid.ColumnDefinitions>
+                                             <ColumnDefinition Width="Auto"/>
+                                             <ColumnDefinition Width="Auto"/>
+                                         </Grid.ColumnDefinitions>
+                                         <Button Name="PART_OkButton"
+                                                  Grid.Column="0"
+                                                  Margin="10,13,7,12"                                                        
+                                                  Padding="{ThemeResource SyncfusionItemPadding}"
+                                                  Height="32"
+                                                  Width="108" 
+                                                  HorizontalAlignment="Stretch"
+                                                  Content="{grids:GridLocalizationResourceExtension ResourceName=OK}"
+                                                  IsEnabled="False"
+                                                  FontFamily="{ThemeResource SyncfusionDataGridFontFamily}"
+                                                  Style="{StaticResource AccentButtonStyle}"
+                                                  Visibility="{Binding ImmediateUpdateColumnFilter,
+                                                                       RelativeSource={RelativeSource TemplatedParent},
+                                                                       Converter={StaticResource ResourceKey=boolToVisiblityConverter},
+                                                                       ConverterParameter=True}"/>
+                                         <Button Name="PART_CancelButton"
+                                                   Grid.Column="1"
+                                                  Margin="7,13,14,12"                                                       
+                                                  Padding="{ThemeResource SyncfusionItemPadding}"
+                                                  Height="32"
+                                                  Width="108" 
+                                                  HorizontalAlignment="Stretch"
+                                                  FontFamily="{ThemeResource SyncfusionDataGridFontFamily}"
+                                                  Content="{Binding ImmediateUpdateColumnFilter,
+                                                                    RelativeSource={RelativeSource TemplatedParent},
+                                                                    Converter={StaticResource resourceNameConverter}}" />
+                                     </Grid>
+                                 </Grid>
+                             </Grid>
+                         </Border>
+                     </ContentControl>
+                 </Border>
+             </ControlTemplate>
+         </Setter.Value>
+     </Setter>
+ </Style>
+ <Style BasedOn="{StaticResource GridFilterControlStyle}" TargetType="dataGrid:GridFilterControl"/>
+</ResourceDictionary>
