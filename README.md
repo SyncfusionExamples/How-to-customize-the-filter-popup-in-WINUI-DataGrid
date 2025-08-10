@@ -1,4 +1,4 @@
-# How to customize the filter popup in WINUI DataGrid(SfDataGrid)
+# How to customize the filter popup in WINUI DataGrid?
 
 In [WinUI DataGrid](https://www.syncfusion.com/winui-controls/datagrid) (SfDataGrid), You can customize the appearance of filter popup by overriding the style of [GridFilterControl](https://help.syncfusion.com/cr/winui/Syncfusion.UI.Xaml.DataGrid.GridFilterControl.html). In this article, we customized the background of the sort button for your reference.
  
@@ -62,4 +62,4 @@ In [WinUI DataGrid](https://www.syncfusion.com/winui-controls/datagrid) (SfDataG
  ```
 ![FilterPopUp AfterCustomization](FilterPopUp_AfterCustomization.png)
 
-Take a moment to peruse the [WINUI DataGrid - Filtering](https://help.syncfusion.com/winui/datagrid/filtering?_gl=1*12qmxiy*_ga*MjEyNzA1Mjg5Ni4xNzUzODczNDk3*_ga_41J4HFMX1J*czE3NTQzNjc0MTEkbzQkZzEkdDE3NTQzNjgwODYkajYwJGwwJGgw) documentation, where you can find about the filtering with code examples.
+Take a moment to peruse the [WINUI DataGrid - Filtering](https://help.syncfusion.com/winui/datagrid/filtering) documentation, where you can find about the filtering with code examples.
